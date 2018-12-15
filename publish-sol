@@ -1,0 +1,24 @@
+#!/bin/bash
+
+remote_end=so2@elf.cs.pub.ro:res/current/laboratoare/
+
+tmpdir=$(mktemp -d)
+
+if test $# -eq 1; then
+    id=$(printf "%02g" $1)
+    cp -r cap-"$id"/sol "$tmpdir"/cap-"$id"-sol
+    pushd "$tmpdir" > /dev/null 2>&1
+    zip -r cap-"$id"-sol.zip cap-"$id"-sol
+    popd > /dev/null 2>&1
+    scp "$tmpdir"/cap-"$id"-sol.zip "$remote_end"
+    exit 0
+fi
+
+for id in $(seq -f "%02g" 1 12); do
+    cp -r cap-"$id"/sol "$tmpdir"/cap-"$id"-sol
+    pushd "$tmpdir" > /dev/null 2>&1
+    zip -r cap-"$id"-sol.zip cap-"$id"-sol
+    popd > /dev/null 2>&1
+done
+scp "$tmpdir"/*.zip "$remote_end"
+rm -r "$tmpdir"

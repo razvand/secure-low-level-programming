@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+
+\usepackage[paper=a4paper, top=2cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[romanian]{babel}
+\usepackage{hyperref}	  % use \url{http://$URL} or \href{http://$URL}{Name}
+\usepackage{underscore}	  % underscores need not be escaped
+\usepackage{subfigure}
+\usepackage{verbatim}
+\usepackage{float}
+
+% Support for including graphics
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\title{Training de Linux kernel}
+
+\author{Răzvan Deaconescu}
+
+\date{7-11 septembrie 2015}
+
+\begin{document}
+
+\maketitle
+
+Training-ul ,,Linux Kernel'' a avut loc în perioada 21-25 septembrie 2015 în sala EG306 din cadrul Universității POLTEHNICA din București. Cursul a fost susținut, în rol de instructor, de Răzvan Deaconescu și a cuprins participanții de mai jos:
+
+\begin{itemize}
+  \item Dan LUPU
+  \item Alexandru-Nicolae BANCIU
+  \item Costin LUPU
+  \item Șerban-Alexandru POPESCU
+  \item Valentin TĂNASĂ
+  \item George-Cristian PĂSĂTOIU
+  \item Bogdan DUMITRU
+  \item Ioan PREDESCU
+  \item Ghenadii FLOREA
+  \item Cătălin-Florentin RĂDUINEA
+  \item Bogdan PINTEA
+\end{itemize}
+
+Structura cursului, discutată împreună cu Thales Romania (prin Dan LUPU), a urmărit transmiterea setului de competențe pentru interacțiunea cu nucleul Linux, în special zona apropiată de hardware a acestuia. Programa a construit întâi partea de concepte de bază și apoi a urmărit aspecte legate de dispozitive hardware și moduri de inspecție a nucleului Linux.
+
+Capitolele prezentate au fost:
+
+\begin{itemize}
+  \item Mediul de dezvoltare pentru cod kernel
+  \item Module de kernel
+  \item Drivere de dispozitiv
+  \item Comunicarea între spațiul utilizator și spațiul kernel
+  \item Dispozitive de tip caracter
+  \item Întreruperi. Operații de intrare/ieșire
+  \item Acțiuni amânabile
+  \item Profiling în nucleul Linux
+\end{itemize}
+
+\section{Resurse folosite}
+
+Cele mai multe dintre resursele logistice pentru desfășurarea cursului (sală, sisteme de calcul, whiteboard, markere) au fost furnizate de Thales România. Participanții au folosit laptop-uri personale. Pentru accesul la Internet am folosit un ruter 3G furnizat de Neo Networking. Pentru desfășurarea training-ului am folosit o mașină virtuală în cadrul căruia am rulat un emulator qemu pentru lucrul ușor cu nucleul Linux: compilare module de kernel, încăcarea și descărcarea lor.
+
+Resursele electronice folosite pentru prezentări și pentru lucrul la sarcini
+practice au fost furnizate de instructori. Acestea au fost:
+\begin{itemize}
+  \item wiki-ul cursului\footnote{\url{http://koala.cs.pub.ro/training/wiki/linux-kernel-dev/home}} cuprinzând resursele și forma de prezentare a acestora;
+  \item slide-urile de curs în format PDF cuprinzând documentația cursului;
+  \item teste practice și teoretice pentru evaluarea inițială și finală a participanților;
+  \item mașină virtuală Linux Mint 13 reprezentând suportul adițional pentru desfășurarea cursului;
+  \item exerciții și demonstrații practice, prezentate pe wiki și în format PDF.
+\end{itemize}
+
+\section{Desfășurarea cursului}
+
+Cursul a avut loc pe parcursul a 5 zile în intervalul 9-13 în fiecare zi.
+
+Au fost alocate 20 de ore pentru training, undeva la 3 ore fiind investite în pregătirea mediului de lucru (mașină virtuală, acces la Internet) și pentru testul inițial (1 oră) și cel final. Întrucât am avut nevoie de acomodarea participanților cu mediul de lucru, testul inițial a avut loc la începutul celei de-a doua zile de curs, nu prima, așa cum era stabilit.
+
+Programa și alocarea de timp pe activități a fost:
+
+\begin{itemize}
+  \item Mediul de dezvoltare pentru cod kernel: 2 ore
+  \item Module de kernel: 3 ore
+  \item Drivere de dispozitiv: 2 ore
+  \item Comunicarea între spațiul utilizator și spațiul kernel: 2 ore
+  \item Dispozitive de tip caracter: 3 ore
+  \item Întreruperi. Operații de intrare/ieșire: 2 ore
+  \item Acțiuni amânabile: 1 ore
+  \item Profiling în nucleul Linux: 2 ore
+\end{itemize}
+
+Inițial preconizasem și parcurgerea unor capitole legate de dispozitive de tip bloc și virtual filesystem, dar experiența cursului a indicat că ar fi fost prea multe noțiuni dintr-o dată.
+
+Participarea a fost activă în cadrul cursului, cu întrebări din partea participanților.
+
+Forma de desfășurare s-a bazat pe o parte de prezentări conceptuale, cu ajutorul slide-urilor, urmată de o parte practică. Partea practică a însemnat exerciții constând în module de kernel care demonstrau funcționalități de la nivelul nucleului sau expuneau interfețe ale acestuia. Am urmărit simultan acomodarea cu partea de cod din kernel și modul în care se dezvoltă cod kernel (și diferențele față de alte programe) și utilitatea acestor cunoștințe în partea de spațiu utilizator. Exercițiile au însemnat o parte importantă, insistând mai mult pe această parte decât pe cea conceptuală.
+
+Pe baza experienței noastre în cadrul unui curs de dezvoltare la nivelul nucleului am folosit un mediu de dezvoltare care a facilitat interacțiunea cu nucleul, lucru apreciat și de participanți care au putut urmări foarte aproape de nucleu modul în care acesta funcționează.
+
+\section{Evaluare și feedback}
+
+Din perspectiva instructurilor, sesiunea de training s-a desfășurat în condiții medii/bune. Problemele de logistică au dus la întârzieri în desfășurarea sesiunii, în special dificultatea instalării VirtualBox pe sistemele laptop ale participanților. Accesul la Internet a însemnat de asemenea un consum de timp.
+
+Nivelul diferit de cunoștințe al participanților a făcut dificilă o abordare unitară. Între participanți pregătirea inclusiv la nivel de cod C era diferită, și unii au avut dificultăți în asimilarea unor noțiuni, dat fiind faptul că noi ne bazam pe cunoștințe anterioare relativ temeinice. De asemenea, nivelul de așteptare a fost diferit, unii dorind mai multă parte conceptuală decât parte practică, lucru indicat și în feedback.
+
+Participanții au fost activi și interactivi. În mod pozitiv am remarcat pe Alex Popescu și George Păsătoiu. Alex Banciu a indicat curiozitate pentru mai multe aspecte, din păcate multe nu făceau parte din subiectul cursului, și au existat discuții particulare. Alex Banciu ar fi beneficiat mai mult de un curs de dezvoltare embedded în Linux. De cealaltă latură Ghenadii Florea și Cătălin Răduinea au fost cumva, depășiți de nivelul cursului; cunoștințele anterioare erau sub nivelul așteptat de acest curs, motiv pentru care au asimilat greu o bună parte din noțiuni. Pentru ei ar fi fost indicată parcurgerea unor cursuri anterioare.
+
+Pe partea de evaluare am avut un test inițial și un test final, rezultatele fiind foarte bune, lucru evidențiat și în fișierul spreadsheet atașat. Cel mai bun câștig legat de participarea la acest curs a fost de Alex Popescu și George Păsătoiu. Toți participanții au demonstrat îmbunătățire a cunoștințelor și competențelor.
+
+În urma desfășurării training-ului (prima instanță de acest fel), câteva aspecte credem că trebuie avute în vedere în sesiunile următoare:
+\begin{enumerate}
+  \item Este dificilă desfășurarea la sediul Thales fără dispozitive (laptop-uri) pregătite. O parte semnificativă a cursului a fost alocată pregătirii mediului; unii participanți nu au avut permisiuni de instalare VirtualBox. În mod ideal această pregătire ar fi făcută înainte, ca apoi mașina virtuală să fie folosită cât mai repede de participanți.
+  \item Este ideală folosirea Internet-ului în timpul training-ului, lucru dificil în rețeaua Internet. Am folosit un ruter 3G furnizat de NeoNetworking, dar a fost, din nou, nevoia unei alocări de timp pentru acest lucru.
+  \item Participanții să treacă printr-un curs/training de programare în C mediu/avansat pentru a avea noțiunile formate.
+  \item Participanții să treacă printr-un curs/training de utilizare avansată Linux, cu accent pe folosirea liniei de comandă și a utilitarelor de dezvoltare.
+  \item Participanții să fie informați legat de structura cursului și dacă se potrivește nevoilor acestora. În mod ideal să știe ce urmărește cursul și cum îi poate ajuta la rezolvarea propriilor probleme.
+  \item Să venim noi cu un set de propuneri de cursuri (curriculum) pentru ca participanții să poată opta, noi stabilind și un arbore de dependențe. Propuneri de astfel de cursului sunt:
+    \begin{itemize}
+      \item Dezvoltarea C sub Linux
+      \item Programarea de sistem în Linux
+      \item Investigarea de sistem în Linux
+      \item Dezvoltarea embedded în Linux
+      \item Linux Device Drivers
+      \item Internele nucleului Linux
+    \end{itemize}
+\end{enumerate}
+
+De partea cealaltă, participanții au completat un formular de feedback furnizat de Thales România care a ajuns la sediul firmei.
+
+\end{document}
