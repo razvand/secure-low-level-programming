@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 04-memorie-stiva
 
 include ../../metafiles/base.mk

@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 07-intregi
 
 include ../../metafiles/base.mk

@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 12-criptare-in-programare
 
 include ../../metafiles/base.mk

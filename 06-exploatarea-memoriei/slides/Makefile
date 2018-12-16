@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 06-exploatarea-memoriei
 
 include ../../metafiles/base.mk

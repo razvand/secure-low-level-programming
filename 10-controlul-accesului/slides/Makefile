@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 10-controlul-accesului
 
 include ../../metafiles/base.mk

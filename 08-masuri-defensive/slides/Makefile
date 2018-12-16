@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 08-masuri-defensive
 
 include ../../metafiles/base.mk

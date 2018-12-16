@@ -1,3 +1,3 @@
-BASENAME = 01-concepte-de-securitate
+BASENAME = 02-spatii-de-adrese
 
 include ../../metafiles/base.mk
