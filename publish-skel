@@ -1,32 +1,11 @@
 #!/bin/bash
 
-remote_end=training@koala.cs.pub.ro:res/linux-kernel-dev/
-
-tmpdir=$(mktemp -d)
+remote_end=training@koala.cs.pub.ro:res/secure-low-level-programming
 
 if test $# -eq 1; then
-    id=$(printf "%02g" $1)
-    test -d cap-"$id"/skel && cp -r cap-"$id"/skel "$tmpdir"/cap-"$id"-skel
-    test -d cap-"$id"/doc && cp -r cap-"$id"/doc "$tmpdir"/cap-"$id"-doc
-    test -d cap-"$id"/bin && cp -r cap-"$id"/bin "$tmpdir"/cap-"$id"-bin
-    pushd "$tmpdir" > /dev/null 2>&1
-    zip -r cap-$id-tasks.zip cap-"$id"-*
-    popd > /dev/null 2>&1
-    cp "$tmpdir"/cap-"$id"-tasks.zip .
-    scp cap-"$id"-tasks.zip "$remote_end"/arc/
-    rm -r "$tmpdir"
+    chap="$1"
+    scp "$chap"-skel.zip "$remote_end"/arc/
     exit 0
 fi
 
-for id in $(seq -f "%02g" 1 12); do
-    test -d cap-"$id"/skel && cp -r cap-"$id"/skel "$tmpdir"/cap-"$id"-skel
-    test -d cap-"$id"/doc && cp -r cap-"$id"/doc "$tmpdir"/cap-"$id"-doc
-    test -d cap-"$id"/bin && cp -r cap-"$id"/bin "$tmpdir"/cap-"$id"-bin
-    pushd "$tmpdir" > /dev/null 2>&1
-    zip -r cap-$id-tasks.zip cap-"$id"-*
-    popd > /dev/null 2>&1
-    cp "$tmpdir"/cap-"$id"-tasks.zip .
-done
-scp cap-*-tasks.zip "$remote_end"/arc/
-
-rm -r "$tmpdir"
+scp *-skel.zip "$remote_end"/arc/

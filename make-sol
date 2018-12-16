@@ -4,30 +4,30 @@ tmpdir=$(mktemp -d)
 
 if test $# -eq 1; then
     chap=$(basename "$1")
-    test -d "$chap"/skel
+    test -d "$chap"/sol
     if test $? -ne 0; then
         exit 1
     fi
-    cp -r "$chap"/skel "$tmpdir"/"$chap"-skel
+    cp -r "$chap"/sol "$tmpdir"/"$chap"-sol
     pushd "$tmpdir" > /dev/null 2>&1
-    zip -r "$chap"-skel.zip "$chap"-skel
+    zip -r "$chap"-sol.zip "$chap"-sol
     popd > /dev/null 2>&1
-    cp "$tmpdir"/"$chap"-skel.zip .
+    cp "$tmpdir"/"$chap"-sol.zip .
     rm -r "$tmpdir"
     exit 0
 fi
 
 for c in [01]*/; do
     chap=$(basename "$c")
-    test -d "$chap"/skel
+    test -d "$chap"/sol
     if test $? -ne 0; then
         continue
     fi
-    cp -r "$chap"/skel "$tmpdir"/"$chap"-skel
+    cp -r "$chap"/sol "$tmpdir"/"$chap"-sol
     pushd "$tmpdir" > /dev/null 2>&1
-    zip -r "$chap"-skel.zip "$chap"-skel
+    zip -r "$chap"-sol.zip "$chap"-sol
     popd > /dev/null 2>&1
-    cp "$tmpdir"/"$chap"-skel.zip .
+    cp "$tmpdir"/"$chap"-sol.zip .
 done
 
 rm -r "$tmpdir"

@@ -1,15 +1,11 @@
 #!/bin/bash
 
 if test $# -eq 1; then
-    id=$(printf "%02g" $1)
-    pushd cap-$id/slides/ > /dev/null 2>&1
-    make
-    popd > /dev/null 2>&1
+    chap="$1"
+    /usr/bin/make -C "$chap"/slides
     exit 0
 fi
 
-for id in $(seq -f "%02g" 0 11); do
-    pushd cap-$id/slides/ > /dev/null 2>&1
-    make
-    popd > /dev/null 2>&1
+for chap in [01]*/; do
+    /usr/bin/make -C "$chap"/slides
 done

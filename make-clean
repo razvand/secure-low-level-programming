@@ -1,19 +1,21 @@
 #!/bin/bash
 
 if test $# -eq 1; then
-    id=$(printf "%02g" $1)
-    for path in $(find cap-"$id" -name 'Makefile*'); do
+    chap="$1"
+    for path in $(find "$chap" -name 'Makefile*'); do
         d=$(dirname "$path")
         f=$(basename "$path")
         /usr/bin/make -C "$d" -f "$f" clean
     done
+    rm "$chap"/slides/*.pdf
     exit 0
 fi
 
-for id in $(seq -f "%02g" 1 11); do
-    for path in $(find cap-"$id" -name 'Makefile*'); do
+for chap in [01]*/; do
+    for path in $(find "$chap" -name 'Makefile*'); do
         d=$(dirname "$path")
         f=$(basename "$path")
         /usr/bin/make -C "$d" -f "$f" clean
     done
+    rm "$chap"/slides/*.pdf
 done
