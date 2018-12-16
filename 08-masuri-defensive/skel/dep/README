@@ -1,0 +1,2 @@
+Download skeleton files for 06-exploatarea-memoriei (wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/06-exploatarea-memoriei-skel.zip
+). Go into shellcode folders and re-exploit the excutables. Remove -zexecstack from Makefile files and retry.
