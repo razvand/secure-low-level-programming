@@ -5,3 +5,5 @@
 3. overwrite folosind buffere
 
 4. use-after-free
+
+5. leak de la un pointer buffer
