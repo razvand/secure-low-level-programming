@@ -1,0 +1,5 @@
+1. exploit cu command injection
+
+2. exploit cu afectarea variabilei de mediu
+
+3. exploit cu un integer overflow

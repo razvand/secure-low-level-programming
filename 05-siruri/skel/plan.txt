@@ -1,0 +1,3 @@
+1. dimensiunea unui element din șir
+
+2. overflow pe șiruri

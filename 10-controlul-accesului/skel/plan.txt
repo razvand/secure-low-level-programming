@@ -1,0 +1,5 @@
+1. folosire program cu setuid()
+
+2. folosire program cu capabilități
+
+3. folosire seccomp()

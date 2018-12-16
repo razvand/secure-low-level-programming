@@ -1,0 +1,7 @@
+1. diferite moduri de definire pointeri/buffere în C
+
+2. information leak folosind buffere
+
+3. overwrite folosind buffere
+
+4. use-after-free

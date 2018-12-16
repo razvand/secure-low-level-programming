@@ -1,0 +1,5 @@
+1. scriere un program sigur, verificare cu cppcheck și alte utilitare
+
+2. program deja scris în C, verificare
+
+3. program deja scris în C++, verificare

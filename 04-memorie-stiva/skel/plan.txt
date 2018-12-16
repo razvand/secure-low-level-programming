@@ -1,0 +1,5 @@
+1. afișarea stivei
+
+2. afișarea stivei folosind buffere
+
+3. suprascrierea adresei de retur din stivă

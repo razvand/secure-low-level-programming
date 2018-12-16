@@ -1,0 +1,5 @@
+1. urmărirea spațiului de adrese la alocare și dezalocare heap + stivă
+
+2. scrierea în zona de cod -> excepție
+
+3. scrierea dincolo de zona alocată, văzut că nu apare excepție

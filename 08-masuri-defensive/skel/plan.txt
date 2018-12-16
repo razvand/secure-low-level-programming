@@ -1,0 +1,7 @@
+1. folosire checksec
+
+2. buffer overflow cu și fără stack canary
+
+3. folosire asan
+
+4. injectare de cod cu fără DEP

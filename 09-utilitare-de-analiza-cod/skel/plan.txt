@@ -1,0 +1,9 @@
+1. auditare cod
+
+2. folosire cppcheck, clang static analyzer
+
+3. folosire valgrind pe programe anterioare
+
+4. folosire libfuzzer
+
+5. folosire klee sau angr

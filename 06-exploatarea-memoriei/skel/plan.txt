@@ -1,0 +1,7 @@
+1. buffer overflow cu rescrierea unei variabile locale
+
+2. buffer overflow cu rescrierea unui pointer de funcție
+
+3. buffer overflow cu rescrierea adresei de retur
+
+4. injectarea de cod
