@@ -8,6 +8,7 @@ int main(void)
 	int i = c;
 	unsigned int a = 0xf0e1d2c3;
 	unsigned int my = 10;
+	int my2 = 10;
 	signed char your = -30;
 
 	printf("uc: %hhu (0x%02hhx), c: %hhd (0x%02hhx)\n", uc, uc, c, c);
@@ -18,6 +19,14 @@ int main(void)
 	printf("sizeof(1): %zu, sizeof(1U): %zu, sizeof(1L): %zu, sizeof(1UL): %zu, sizeof(1LL): %zu, sizeof(1ULL): %zu\n",
 		sizeof(1), sizeof(1U), sizeof(1L), sizeof(1UL), sizeof(1LL), sizeof(1ULL));
 
+	if (10 > -30)
+		printf("10 > -30\n");
+	if (my2 > -30)
+		printf("10 > -30\n");
+	if (my2 > your)
+		printf("10 > -30\n");
+	if (my < -30)
+		printf("10 < -30\n");
 	if (my < your)
 		printf("10 < -30\n");
 
