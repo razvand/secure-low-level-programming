@@ -27,6 +27,10 @@ static void use_seccomp(void)
 	if (rc < 0)
 		goto out;
 
+	rc = seccomp_rule_add(ctx, SCMP_ACT_ALLOW, SCMP_SYS(write), 0);
+	if (rc < 0)
+		goto out;
+
 	rc = seccomp_load(ctx);
 	if (rc < 0)
 		goto out;
@@ -40,16 +44,16 @@ int main(int argc, char *argv[])
 	FILE *f_sudoers, *f_shadow;
 
 	puts("beginning");
-	f_sudoers = fopen("/etc/sudoers", "rt");
+	f_sudoers = fopen("/etc/hosts", "rt");
 	if (f_sudoers == NULL)
-		perror("fopen(\"/etc/sudoers\")");
+		perror("fopen(\"/etc/hosts\")");
 
 	/* Give up setuid privilege. */
 	use_seccomp();
-	puts("after privilege drop");
+	puts("after sandboxing");
 
-	f_shadow = fopen("/etc/shadow", "rt");
+	f_shadow = fopen("/etc/passwd", "rt");
 	if (f_shadow == NULL)
-		perror("fopen(\"/etc/shadow\")");
+		perror("fopen(\"/etc/passwd\")");
 
 }
