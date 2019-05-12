@@ -1,0 +1,52 @@
+====== 3. Gestiunea bufferelor ======
+
+Vom vorbi despre zone de memorie continue în spațiul de adrese al procesului (bufferele). Vom discuta despre moduri de adresare a memoriei, dimensiuni ale bufferelor, modul în care putem trece de limitele unui buffer.
+
+===== Subiecte abordate =====
+
+  * definiția unui buffer
+  * pointeri și vectori
+  * probleme în folosirea bufferelor
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/03-gestiunea-bufferelor.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/03-gestiunea-bufferelor-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/03-gestiunea-bufferelor-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/03-gestiunea-bufferelor-skel.zip
+unzip 03-gestiunea-bufferelor-skel.zip
+</code>
+
+==== Pointeri și vectori ====
+
+Accesăm directorul ''pointers-and-arrays/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Observați toate operațiile cu pointeri. De ce sunt comentate cele trei linii din funcția ''work_lhs()''? Ce se întâmplă dacă le decomentați?
+
+==== Leak din buffer ====
+
+Accesăm directorul ''buffer-leak/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.cpp'' și rulați executabilul ''vuln''. Obțineți leak din memorie folosind un index dorit. La ce pot fi utile informațiile afișate? Afișați parola.
+
+==== Overwrite din buffer ====
+
+Accesăm directorul ''buffer-overwrite/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.cpp'' și rulați executabilul ''vuln''. Folosiți un atac de tipul //array index out of bounds// ca să suprascrieți variabila ''v'' cu valoarea ''87654321'' și să afișați mesajul //You've got it. Congratulations!//.
+
+==== Use-after-free ====
+
+Accesăm directorul ''use-after-free/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.cpp'' și rulați executabilul ''vuln''. Ce se întâmplă? Cum poate fi această "problemă" exploatată?
+
+==== Leak în lanț ====
+
+Accesăm directorul ''chained-leak/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.cpp'' și rulați executabilul ''vuln''. Obțineți leak din memorie ca să accesați parola.
+

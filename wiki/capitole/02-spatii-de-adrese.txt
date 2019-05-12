@@ -1,0 +1,58 @@
+====== 2. Spații de adrese ======
+
+Ne interesează modul în care este structurat spațiul de adrese al unui proces pentru a înțelege vulnerabilitățile legate de memoria sa. Vom vorbi despre zonele din spațiul de adrese al unui proces, rolul fiecăreia și perspective de cum pot fi atacate.
+
+===== Subiecte abordate =====
+
+  * procese
+  * spațiul (virtual) de adrese al unui proces
+  * zone din spațiul virtual de adrese
+  * alocarea și accesarea memoriei
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/02-spatii-de-adrese.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/02-spatii-de-adrese-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/02-spatii-de-adrese-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/02-spatii-de-adrese-skel.zip
+unzip 02-spatii-de-adrese-skel.zip
+</code>
+
+==== Spațiul de adrese ====
+
+Accesăm directorul ''address-space/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''.
+
+Într-o altă consolă rulați comanda
+<code>
+pmap -p $(pidof prog)
+</code>
+Comanda afișează spațiul virtual de adrese al procesului.
+
+Dacă doriți să urmăriți continuu (automat) spațiul virtual de adrese al procesului, rulați comanda
+<code>
+watch -d -n 1 pmap -p $(pidof prog)
+</code>
+
+Treceți prin fiecare pas în program și rulați comanda de mai sus la fiecare pas pentru a vedea cum se modifică (sau nu) zonele din spațiul virtual de adrese al procesului.
+
+Faceți o modificare ca să alocați (într-o buclă, cel mai simplu) de 10 ori memorie de fiecare fel.
+
+==== Acces read-write ====
+
+Accesăm directorul ''read-write-areas/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Generați accesarea de fiecare tip (//read// sau //write//) a fiecărei zone de mari de memorie a unui proces. De ce la unele primiți //segmentation fault//?
+
+==== Acces peste limite ====
+
+Accesăm directorul ''over-the-edge/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Observați cum accesarea dincolo de limitele buffer-ului nu generează //segmentation fault//.
+
+Modificați programul pentru a vedea la ce index din cadrul fiecărei zone (''data'', ''stack'', ''heap'') obțineți //segmentation fault//.
+

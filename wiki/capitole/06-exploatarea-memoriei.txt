@@ -1,0 +1,143 @@
+====== 6. Exploatarea memoriei ======
+
+Folosirea necorespunzătoare a șirurilor, întregilor și a altor tipuri de date și funcționalități poate lăsa atacatorului posibilitatea de citire și suprascriere de informații critice din memorie. Exploatarea memoriei este unul dintre modurile în care un atacator urmărește accesul la sistem și controlul acestuia.
+
+===== Subiecte abordate =====
+
+  * fluxul de control al programului
+  * pointeri de cod
+  * redirectarea execuției
+  * injecția de cod
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/06-exploatarea-memoriei.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/06-exploatarea-memoriei-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/06-exploatarea-memoriei-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/06-exploatarea-memoriei-skel.zip
+unzip 06-exploatarea-memoriei-skel.zip
+cd 06-exploatarea-memoriei-skel/
+</code>
+
+==== Buffer overflow pe variabilă locală ====
+
+Accesăm directorul ''bo-local-variable/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Folosiți-vă de buffer overflow-ul existent în program ca să afișați mesajul //You've got it. Congratulations!//.
+
+Ca să afișați un șir mai complex folosiți Python ca mai jos:
+<code>
+student@pr706-pc:~$ python -c 'print "A"*16'
+AAAAAAAAAAAAAAAA
+
+student@pr706-pc:~$ python -c 'print "A"*16 + "B"*4'
+AAAAAAAAAAAAAAAABBBB
+
+student@pr706-pc:~$ python -c 'print "A"*16 + "B"*4 + "\xaa\xbb"'
+AAAAAAAAAAAAAAAABBBB
+
+student@pr706-pc:~$ python -c 'print "A"*16 + "B"*4 + "\xaa\xbb"' | xxd
+00000000: 4141 4141 4141 4141 4141 4141 4141 4141  AAAAAAAAAAAAAAAA
+00000010: 4242 4242 aabb 0a                        BBBB...
+</code>
+
+<note tip>
+Ca să vedeți unde sunt plasate variabilele locale și bufferele și să aflați diferența între ele (//offset//-ul), dezasamblați executabilul și aflați adresa bufferului și a variabilei (sunt de forma ''rbp-<numar>''):
+<code>
+student@pr706-pc:~$ objdump -d -M intel vuln
+</code>
+</note>
+
+<note tip>
+Ca să transmiteți un payload unui program folosiți o linie de comandă de forma:
+<code>
+student@pr706-pc:~$ python -c 'print <TODO_payload>' | ./vuln
+</code>
+</note>
+==== Buffer overflow pe pointer de funcție ====
+
+Accesăm directorul ''bo-function-pointer/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Folosiți-vă de buffer overflow-ul existent în program ca să afișați mesajul //You've got it. Congratulations!//. Trebuie să suprascrieți variabila locală de tip pointer de funcție ''f'' cu adresa funcției ''hidden()'' în locul funcției ''public()''.
+
+<note tip>
+Ca să aflați adresa unei funcții a unui program executabil, rulați comanda ''nm'' pe acel executabil:
+<code>
+student@pr706-pc:~$ nm vuln
+</code>
+</note>
+
+==== Buffer overflow pe adresă de retur ====
+
+Accesăm directorul ''bo-return-address/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Folosiți-vă de buffer overflow-ul existent în program ca să afișați mesajul //You've got it. Congratulations!// prin apelarea funcției ''hidden''. Va trebui să suprascrieți adresa de retur a funcției ''do_nasty()'' cu adresa funcției ''hidden()''.
+
+<note tip>
+Adresa de retur a unei funcții se găsește la adresa ''rbp+8''.
+</note>
+
+==== Rulare de shellcode ====
+
+Accesăm directorul ''run-shellcode/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Programul vă deschide un shell nou. Ca să ieșiți din acel shell folosiți comanda ''exit'' sau combinația de taste ''Ctrl+d''.
+
+Programul folosește variabila ''shellcode'' pentru a reține un cod binar care generează un shell (realizează apelul de sistem ''execve'') atunci când este executat.
+
+Pentru a investiga în detaliu shellcode-ul (codul binar) puteți folosi ''objdump'' ca mai jos:
+<code>
+student@pr706-pc:~$ echo -en '\x6a\x42\x58\xfe\xc4\x48\x99\x52\x48\xbf\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x57\x54\x5e\x49\x89\xd0\x49\x89\xd2\x0f\x05' > shellcode
+student@pr706-pc:~$ objdump -D -M intel -b binary -m i386:x86-64 shellcode 
+
+shellcode:     file format binary
+
+
+Disassembly of section .data:
+
+0000000000000000 <.data>:
+   0:   6a 42                  push   0x42
+   2:   58                     pop    rax
+   3:   fe c4                  inc    ah
+   5:   48 99                  cqo    
+   7:   52                     push   rdx
+   8:   48 bf 2f 62 69 6e 2f   movabs rdi,0x68732f2f6e69622f
+   f:   2f 73 68 
+  12:   57                     push   rdi
+  13:   54                     push   rsp
+  14:   5e                     pop    rsi
+  15:   49 89 d0               mov    r8,rdx
+  18:   49 89 d2               mov    r10,rdx
+  1b:   0f 05                  syscall 
+</code>
+
+==== Injectare de shellcode ====
+
+Accesăm directorul ''inject-shellcode/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Furnizați-i la intrarea standard shellcode-ul pentru a genera un shell.
+
+Va trebui să mențineți conexiunea activă la standard input pentru ''vuln''. Cel mai indicat este să folosiți comanda:
+<code>
+cat <(echo -e '<TODO_shellcode>') - | ./vuln
+</code>
+
+După ce obțineți un shell nu vă apare prompt, tastați comenzi precum ''ls'' sau ''ps''. Ca să închideți shell-ul generat folosiți comanda ''exit'' sau combinația de taste ''Ctrl+d''.
+
+==== Buffer overflow și injectare de shellcode ====
+
+Accesăm directorul ''bo-inject-shellcode/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Va trebui să injectați un shellcode în variabila ''shellcode'' și să generați buffer overflow care să conducă la executarea shellcode-ului. Buffer overflow-ul va suprascrie adresa de retur a funcției ''do_nasty()'' cu adresa variabilei ''shellcode''.
+
+<note tip>
+Aflați adresa variabilei ''shellcode'' folosind comanda ''nm''.
+</note>
+
+Modificați template-ul din scriptul ''exploit'' pentru obținerea shell-ului și rulați scriptul folosind:
+<code>
+./exploit | ./vuln
+</code>

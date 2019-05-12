@@ -1,0 +1,64 @@
+====== 4. Zone de memorie. Stiva ======
+
+Discutăm despre zonele de memorie, cu accent pe stivă, zona folosită în cadrul apelurilor de funcții. Stiva este interesantă pentru că aici se găsesc variabilele locale și adresa de retur, ce pot fi folosite pentru a genera atacuri.
+
+===== Subiecte abordate =====
+
+  * zone de memorie
+  * alocare dinamică
+  * stiva
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/04-memorie-stiva.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/04-memorie-stiva-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/04-memorie-stiva-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/04-memorie-stiva-skel.zip
+unzip 04-memorie-stiva-skel.zip
+cd 04-memorie-stiva-skel/
+</code>
+
+==== Afișarea stivei ====
+
+Accesăm directorul ''stack-print/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Observați valorile afișate în formatul ''address: value''. Identificați variabile locale, adresa de retur, frame pointer-ul.
+
+Transmiteți două argumente funcției ''g()'', recompilați executabilul și rulați-l din nou pentru a observa stiva.
+
+==== Afișarea stivei cu un buffer ====
+
+Accesăm directorul ''buffer-stack-print/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Afișăm stiva având folosind indexarea buffer-ului în afara limitelor (//array index out of bounds//). Identificați variabile locale, adresa de retur, frame pointer-ul.
+
+==== Suprascrierea valorilor de pe stivă ====
+
+Accesăm directorul ''stack-overwrite/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Obiectivul este să suprascrieți pointer-ul de funcție ''fn'' cu adresa funcției ''g()'' astfel încât apelul ''fn()'' să conducă la apelul funcție ''g()'' (**nu** al funcției ''idle()'').
+
+<note tip>
+Pentru a afla adresa funcției ''g()'' folosiți utilitarul ''nm'' cu argument numele executabilului, adică rulând comanda
+<code>
+nm vuln
+</code>
+</note>
+
+<note tip>
+Pentru a converti o valoarea din zecimal în hexazecimal și invers puteți folosi consola Python, prin rularea comenzii ''python'', ca mai jos:
+<code>
+student@pr706-pc:~$ python
+[...]
+Type "help", "copyright", "credits" or "license" for more information.
+>>> hex(18282)
+'0x476a'
+>>> 0xabcdef
+11259375
+</code>
+</note>
+
+**Bonus**: Suprascrieți **și** adresa de retur cu adresa funcției ''g()'' ca să o apelați de două ori.

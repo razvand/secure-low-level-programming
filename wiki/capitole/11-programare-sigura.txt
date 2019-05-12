@@ -1,0 +1,73 @@
+====== 11. Programare sigură ======
+
+Atunci când scriem programe, ținând cont de problemele care pot să apară, folosim tehnici de programare sigură (//secure programming//) sau programare defensivă (//defensive programming//). Aceasta înseamnă să evităm apariția de bug-uri și vulnerabilități prin folosirea corespunzătoare a tipurilor de date, a apelurilor de funcții și prin verificarea atentă a intrării într-un program. Dezvoltatorul va trata intrarea, codul refolosit, bibliotecile ca fiind nesigure și surse de bug-uri și atacuri și va scrie cod în mod corespunzător.
+===== Subiecte abordate =====
+
+  * programare sigură
+  * programare defensivă
+  * CWE (//Common Weakness Enumeration//)
+  * SSDL (//Secure Software Development Lifecycle//)
+
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/11-programare-sigura.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/11-programare-sigura-skel.zip|Arhiva de suport]]
+
+===== Alte resurse =====
+
+  * [[https://www.amazon.com/Secure-Coding-2nd-Software-Engineering/dp/0321822137|Robert Seacord: Secure Coding in C/C++, 2nd Edition]] ([[http://index-of.es/Miscellanous/LIVRES/Pearson.Secure.2nd.Edition.Oct.2013.ISBN.0321822137.pdf|PDF]])
+  * https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard
+  * https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682
+  * https://dwheeler.com/secure-programs/
+  * https://en.opensuse.org/SDB:Secure_coding_checklist:_C_and_C%2B%2B
+  * https://www.owasp.org/index.php/How_to_write_insecure_code
+  * https://github.com/patricia-gallardo/insecure-coding-examples
+  * https://github.com/deadbits/InsecureProgramming
+  * https://cwe.mitre.org
+
+===== Exerciții =====
+
+/*
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/11-programare-sigura-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/11-programare-sigura-skel.zip
+unzip 11-programare-sigura-skel.zip
+cd 11-programare-sigura-skel/
+</code>
+
+*/
+
+==== Reguli Secure Coding ====
+
+Parcurgem două reguli din [[https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard|SEI CERT C Coding Standard]] și două reguli din [[https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682|SEI CERT C++ Coding Standard]]. Identificați problemele pe care le rezolvă și indicațiile de rezolvare a acestora.
+==== Exemple nesigure ====
+
+Parcurgeți exemplele de cod nesigure din subdirectorul ''vulnerable/'' din [[https://github.com/patricia-gallardo/insecure-coding-examples|acest repository]]. Pentru a clona repository-ul folosiți comanda
+<code>
+git clone https://github.com/patricia-gallardo/insecure-coding-examples
+</code>
+
+Apoi accesați subdirectorul ''vulnerable/'' din repository și parcurgeți fișierele cod sursă C sau C++ de acolo.
+==== Alte exemple nesigure ====
+
+Parcurgeți exemplele de cod nesigure din [[https://github.com/deadbits/InsecureProgramming|acest repository]]. Pentru a clona repository-ul folosiți comanda
+<code>
+git clone https://github.com/deadbits/InsecureProgramming
+</code>
+
+Parcurgeți **toate** fișierele cod sursă C din rădăcina repository-ului și identificați, rapid, bug-ul/vulnerabilitatea și ce problemă cauzează (și, dacă e cazul, cum poate fi exploatată).
+
+==== Bad vs. Good ====
+
+Accesați [[https://samate.nist.gov/SRD/testsuite.php|NIST Software Assurance Reference Dataset Project]].
+
+Descărcați:
+  * suita //C Test Suite for Source Code Analyzer v2 - Vulnerable// (Test Suite ID 100)
+  * suita //C Test Suite for Source Code Analyzer v2 - Secure// (Test Suite ID 101)
+
+Alegeți cel puțin 5 exemple din suita vulnerabilă și identificați vulnerabilitatea. Gândiți soluția pentru acea vulnerabilitate și vedeți dacă este similară celei din suita sigură. În suita sigură identificatorul exemplului este mai mare cu 1 față de cel din suita vulnerabilă. De exemplu pentru exemplul ''043'' din suita vulnerabilă, identificatorul este ''044'' ca mai jos:
+<code>
+cat 100/000/149/043/Format_string_problem-bad.c
+cat 101/000/149/044/Format_string_problem-good.c
+</code>

@@ -1,0 +1,58 @@
+====== 1. Concepte de securitate ======
+
+Facem o trecere în revistă prin principalele subiecte de securitate și perspectiva atacatorului și apărătorului.
+
+===== Subiecte abordate =====
+
+  * obiective ale securității
+  * perspectiva atacatorului și apărătorului
+  * concepte de securitate
+  * tipuri/clase de securitate
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/01-concepte-de-securitate.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/01-concepte-de-securitate-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/01-concepte-de-securitate-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/01-concepte-de-securitate-skel.zip
+unzip 01-concepte-de-securitate-skel.zip
+</code>
+
+==== Injectarea unei comenzi ====
+
+Accesăm directorul ''command-injection/'' din arhiva de suport.
+
+Urmăriți fișierul cod sursă C ''vuln.c'' și rulați executabilul ''vuln''. Folosiți executabilul în așa fel încât să afișați conținutul fișierului ''/etc/passwd''.
+
+==== Controlul mediului ====
+
+Accesăm directorul ''env-control/'' din arhiva de suport.
+
+Urmăriți fișierul cod sursă C ''vuln.c'' și rulați executabilul ''vuln''. Folosiți executabilul în așa fel încât să afișați conținutul fișierului ''/etc/passwd''.
+
+<note hint>
+Folosiți-vă de prezența scriptului ''id'' în directorul curent.
+</note>
+
+De ce a fost nevoie ca în scriptul ''id'' să folosim calea completă către comanda ''/bin/cat''? Putem să "exploatăm" executabilul ''vuln'' în așa fel încât să nu fie nevoie de calea completă către comanda ''/bin/cat''?
+
+==== Integer overflow ====
+
+Accesăm directorul ''integer-overflow/'' din arhiva de suport.
+
+Urmăriți fișierul cod sursă C ''vuln.cpp'' și rulați executabilul ''vuln'' în așa fel încât să afișeze mesajul //You got it! Congratulations!//.
+
+==== Leak de informație ====
+
+Accesăm directorul ''leak/'' din arhiva de suport.
+
+De ce este problematic programul ''vuln.cpp''? Ce poate obține un atacator din accesarea executabilului? Ce se întâmplă dacă decomentăm linia care apelează funcția ''do_trigger2()''?
+
+==== Obținere root prin controlul mediului ====
+
+Accesăm directorul ''get-root/'' din arhiva de suport.
+
+Urmăriți fișierul cod sursă C ''vuln.c'' și rulați executabilul ''vuln''. Folosiți executabilul în așa fel încât să afișeze mesajul //You got it! Congratulations!//.

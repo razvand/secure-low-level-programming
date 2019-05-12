@@ -1,0 +1,120 @@
+====== 9. Utilitare de analiză de cod ======
+
+Pentru a preveni existența bug-urilor și a vulnerabilităților, un dezvoltator va urmări cu atenție codul scris de sine sau de alții (auditare de cod). Pentru a facilita acest proces, există utilitare specifice care să automatizeze analiza codului și să raporteze posibile probleme. Pot fi utilitare de analiză statică (pe cod) sau de analiză dinamică (ce presupun rularea unui proces). Este important integrarea acestor utilitare în procesul de dezvoltare și testare software (//Software Development Lifecycle//).
+
+===== Subiecte abordate =====
+
+  * auditarea codului
+  * utilitare de analiză statică
+  * utilitare de analiză dinamică
+  * fuzzing
+  * execuție simbolică
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/09-utilitare-de-analiza-cod.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/09-utilitare-de-analiza-cod-skel.zip|Arhiva de suport]]
+
+===== Alte resurse =====
+
+  * https://github.com/mre/awesome-static-analysis
+  * https://www.peerlyst.com/posts/resource-a-list-of-dynamic-analysis-tools-for-software-susan-parker
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/09-utilitare-de-analiza-cod-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/09-utilitare-de-analiza-cod-skel.zip
+unzip 09-utilitare-de-analiza-cod-skel.zip
+cd 09-utilitare-de-analiza-cod-skel/
+</code>
+
+Pentru a instala aplicațiile necesare pentru investigarea programelor folosiți comanda
+<code>
+sudo apt install clang cppcheck splint valgrind
+</code>
+
+==== Auditare cod ====
+
+Accesăm directorul ''hidden-bugs/'' din arhiva de suport.
+
+Fișierul cod sursă ''hidden-bugs.c'' conține 8 erori de programare. Identificați-le parcurgând manual codul (//code audit//). Lucrați în echipe de 2-3 persoane.
+
+După aceasta folosiți utilitarele ''cppcheck'', ''splint'' și ''scan-build'' pentru a verifica static prezența erorilor.
+
+Moduri uzuale de rulare:
+<code>
+cppcheck --enable=all hidden-bugs.c
+splint hidden-bugs.c
+scan-build make
+</code>
+
+<note tip>
+Ignorați erori legate de fișiere incluse în rezultatul rulării comenzii ''cppcheck''.
+</note>
+
+Foarte probabil veți vedea că utilitarele nu depistează multe erori. Multe erori nu pot fi depistate cu utilitare de analiză, ci mai degrabă de un observator uman.
+
+==== Verificare cod anterior ====
+
+Folosiți utilitarele ''cppcheck'', ''scan-build'' și ''splint'' pentru a verifica fișierele ce conțin buffer overflow-uri din sesiunea ''06''.
+
+==== Verificare cod proiect ====
+
+Accesăm directorul ''picpic/'' din arhiva de suport.
+
+Verificați codul sursă din cadrul directorului folosind utilitarele ''cppcheck'', ''splint'' și ''scan-build''.
+
+==== Valgrind ====
+
+Accesăm directorul ''valgrind/'' din arhiva de suport.
+
+Urmăriți codul din fișierul cod sursă ''vuln.c'' și rulați executabilul ''vuln''. Executabilul primește ca argument un număr care se asociează cu o anumită funcție din program ce va fi executată. Rulați programul sub Valgrind în forma:
+<code>
+valgrind ./vuln 1
+</code>
+Vedeți rezultatul afișat de Valgrind și validați depistarea erorilor de folosire a memoriei.
+
+==== Fuzzing ====
+
+Clonați repository-ul de [[https://github.com/ThalesIgnite/afl-training|aici]] folosind comanda
+<code>
+git clone https://github.com/ThalesIgnite/afl-training
+</code>
+
+Apoi urmăriți indicațiile de [[https://github.com/ThalesIgnite/afl-training/tree/master/quickstart|aici]] pentru a face fuzzing pe executabilul ''vulnerable''.
+
+<note important>
+Compilarea fuzzer-ului AFL va dura.
+</note>
+
+==== Symbolic Execution ====
+
+Urmăriți indicațiile de [[https://github.com/angr/angr-doc/blob/master/INSTALL.md#installing-angr|aici]] pentru instalarea Angr.
+
+<note important>
+Pe versiunea de Ubuntu din sistemele din sala PR708 nu funcționează comanda ''mkvirtualenv''. Folosiți următoarele două comenzi pentru a crea un mediu virtual în care să instalați și rulați ''angr'':
+<code>
+virtualenv angr
+cd angr
+source ./bin/activate
+</code>
+
+Acum puteți install ''angr'' folosind comanda ''pip'' așa cum e indicat în [[https://github.com/angr/angr-doc/blob/master/INSTALL.md#installing-angr|documentație]].
+
+Dacă doriți să părăsiți mediul virtualenv folosiți comanda
+<code>
+deactivate
+</code>
+</note>
+
+Clonați repository-ul de exemple Angr de [[https://github.com/angr/angr-doc|aici]] folosind coamnda
+<code>
+git clone https://github.com/angr/angr-doc
+</code>
+În urma comenzii de mai sus se creează directorul ''angr-doc/''.
+
+Testați exemplul din ''angr-doc/examples/strcpy_find'' din exemplu descris și [[https://docs.angr.io/examples#beginner-vulnerability-discovery-example-strcpy_find|aici]] prin rularea comenzii:
+<code>
+python solve.py
+</code>
+Scriptul Python va "exploata" executabilul ''strcpy_find'' folosind execuție simbolică și va obține parola cerută. Parcurgeți scriptul ''solve.py'' pentru o primă perspectivă asupra Angr. Nu e nevoie să înțelegeți, doar să știți că există.

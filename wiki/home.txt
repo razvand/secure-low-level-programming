@@ -1,0 +1,35 @@
+====== Programare sigură low-level (C/C++) ======
+
+În acest training vom prezenta și vom lucra cu noțiuni din zona securității și proiectării și implementării aplicațiilor sigure în C/C++. Vom parcurge tipuri de probleme, vulnerabilități și atacuri ce pot apărea în aplicații scrise în C/C++ și moduri în care putem îmbunătăți securitatea acestora. În cadrul acestui training presupunem abilități bune de folosire a limbajelor C/C++ și a utilitarelor aferente.
+
+===== Instructor =====
+
+  * [[razvan.deaconescu@cs.pub.ro|Răzvan Deaconescu]]
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/|Slide-uri și arhive]]
+
+===== Resurse online =====
+
+  * [[https://www.amazon.com/Secure-Coding-2nd-Software-Engineering/dp/0321822137|Robert Seacord: Secure Coding in C/C++, 2nd Edition]] ([[http://index-of.es/Miscellanous/LIVRES/Pearson.Secure.2nd.Edition.Oct.2013.ISBN.0321822137.pdf|PDF]])
+  * https://wiki.sei.cmu.edu/confluence/display/c/SEI+CERT+C+Coding+Standard
+  * https://wiki.sei.cmu.edu/confluence/pages/viewpage.action?pageId=88046682
+  * https://dwheeler.com/secure-programs/
+
+===== Resurse suplimentare =====
+
+  * [[https://www.amazon.com/Computer-Systems-Programmers-Perspective-3/dp/9332573905|Computer Systems: A Programmer's Perspective]]
+  * [[https://linker.iecc.com/|John R. Levine: Linkers and Loaders]]
+  * [[https://www.amazon.com/Hacking-Art-Exploitation-Jon-Erickson/dp/1593271441|Jon Erickson: Hacking: The Art of Exploitation, 2nd Edition]]
+  * [[https://www.amazon.com/Operating-Security-Synthesis-Lectures-Information/dp/1598292129|Trent Jaeger: Operating System Security]]
+  * [[https://www.amazon.com/Linux-Programming-Interface-System-Handbook-ebook/dp/B004OEJMZM/|Michael Kerrisk: The Linux Programming Interface]]
+  * [[https://www.amazon.com/Operating-System-Concepts-Abraham-Silberschatz/dp/1118063333/|Operating System Concepts]]
+  * [[https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670/|Steve McConnel: Code Complete, 2nd Edition]]
+  * [[https://www.amazon.com/gp/product/8177582488/|Kernighan & Pike: The Practice of Programming]]
+  * [[https://www.amazon.com/Pragmatic-Programmer-Journeyman-Master/dp/020161622X|The Pragmatic Programmer]]
+
+===== Resurse practice =====
+
+  * [[http://overthewire.org/wargames/|OverTheWire Wargames]]
+  * [[https://io.netgarage.org|IO Netgarage Wargame]]

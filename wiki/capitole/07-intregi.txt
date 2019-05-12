@@ -1,0 +1,46 @@
+====== 7. Lucrul cu întregi ======
+
+Întregii sunt folosiți pe parcursul programelor și pot fi cauze de probleme. Atunci când facem comparații sau atribuiri între întregi de diferite tipuri pot apărea probleme exploatabile. Mai mult, operațiile de adunare sau înmulțire de întregi sunt cauzatoare de //integer overflows//, alte surse de probleme.
+
+===== Subiecte abordate =====
+
+  * tipuri de date întregi
+  * operații cu întregi
+  * probleme cu întregi
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/07-intregi.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/07-intregi-skel.zip|Arhiva de suport]]
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/07-intregi-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/07-intregi-skel.zip
+unzip 07-intregi-skel.zip
+cd 07-intregi-skel/
+</code>
+
+==== Tipuri de date întregi ====
+
+Accesăm directorul ''integer-types/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Urmăriți în program și în rezultatul rulării sale valorile tipurilor de date întregi și dimensiunea lor (''sizeof'').
+
+==== Număr introdus ====
+
+Accesăm directorul ''input-number/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Urmăriți valoarea unui număr întreg în funcție de interpretarea sa cu semn sau fără semn.
+
+==== Smash the Stack Wargame Level 2 ====
+
+Accesăm directorul ''sts2/'' din arhiva de suport. Este nivelul 2 din wargame-ul [[https://io.netgarage.org/|IO Netgarage (fost IO Smash the Stack)]].
+
+Urmăriți conținutul fișierului ''level02.c'' și rulați executabilul ''level02''. Obiectivul este să apelați handler-ul de semnal ''catcher()'' prin declanșarea unui semnal de tipul ''FPE'' (//Floating Point Exception//).
+
+==== Smash the Stack Wargame Level 7 ====
+
+Accesăm directorul ''sts7/'' din arhiva de suport. Este nivelul 7 din wargame-ul [[https://io.netgarage.org/|IO Netgarage (fost IO Smash the Stack)]].
+
+Urmăriți conținutul fișierului ''level07.c'' și rulați executabilul ''level07''. Obiectivul este să folosiți un buffer overflow și operații cu întregi ca să obțineți un shell, adică să fie satisfăcută condiția ''count == 0x574f4c46''.

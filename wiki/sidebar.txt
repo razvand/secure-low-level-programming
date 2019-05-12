@@ -1,0 +1,11 @@
+**[[:secure-low-level-programming:home|Programare sigură low-level (C/C++)]]**
+
+
+----
+
+
+**[[:secure-low-level-programming:capitole:home|Capitole]]**
+{{indexmenu>:secure-low-level-programming:capitole}}
+
+
+----

@@ -1,0 +1,32 @@
+====== 12. Criptare în programare ======
+
+Atunci când o aplicație stochează sau transferă date, trebuie să asigure confidențialitatea și integritatea acestora: prevenirea unui agent neautorizat să acceseze și să modifice datele. Confidențialitatea și integritatea sunt asigurate prin primitive criptografice. În general există biblioteci criptografice care implementează algoritmi cunoscuți criptografici. Este recomandată folosirea acestor biblioteci față de o implementare proprie care poate avea probleme.
+
+===== Subiecte abordate =====
+
+  * criptare
+  * biblioteci de criptare
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/12-criptare-in-programare.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/12-criptare-in-programare-skel.zip|Arhiva de suport]]
+
+===== Alte resurse =====
+
+  * https://en.wikipedia.org/wiki/Comparison_of_cryptography_libraries
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/12-criptare-in-programare-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/12-criptare-in-programare-skel.zip
+unzip 12-criptare-in-programare-skel.zip
+cd 12-criptare-in-programare-skel/
+</code>
+
+==== OpenSSL ====
+
+Accesăm directorul ''openssl/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Programul face criptarea și decriptarea unui text folosind un mesaj și o cheie predefinită. Programul folosește implementarea AES (//Advanced Encryption Standard//) din biblioteca [[https://www.openssl.org/|OpenSSL]] (linkată în ''Makefile'' cu opțiunea ''-lcrypto'').
+

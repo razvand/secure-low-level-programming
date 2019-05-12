@@ -1,0 +1,83 @@
+====== 8. Măsuri defensive ======
+
+Compilatorul și sistemul de operare oferă mecanisme defensive cu rol în minimizarea riscului de atac în cadrul aplicațiilor. Acestea fac mai dificil efortul atacatorului, dar nu imposibil. În general, se recomandă folosirea unei palete cât mai largi de măsuri defensive, reținând că au un overhead de rulare.
+
+===== Subiecte abordate =====
+
+  * atacator și apărător
+  * perspectiva atacatorului
+  * măsuri defensive la runtime
+  * validarea intrării
+  * izolarea aplicațiilor
+  * securitatea fluxului de informație
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/08-masuri-defensive.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/08-masuri-defensive-skel.zip|Arhiva de suport]]
+
+===== Alte resurse =====
+
+  * https://github.com/slimm609/checksec.sh
+  * https://github.com/google/sanitizers/wiki/AddressSanitizer
+  * https://github.com/google/sanitizers
+  * https://idea.popcount.org/2013-08-15-fortify_source/
+  * https://www.corelan.be/index.php/2009/09/21/exploit-writing-tutorial-part-6-bypassing-stack-cookies-safeseh-hw-dep-and-aslr/
+  * http://7h3ram.blogspot.com/2012/07/exploit-mitigation-techniques-on-linux.html
+  * http://fluxius.handgrep.se/2011/10/20/the-art-of-elf-analysises-and-exploitations/
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/08-masuri-defensive-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/08-masuri-defensive-skel.zip
+unzip 08-masuri-defensive-skel.zip
+cd 08-masuri-defensive-skel/
+</code>
+
+==== Măsuri defensive aplicate unui executabil ====
+
+Accesăm directorul ''checksec/'' din arhiva de suport.
+
+Fișierul cod sursă ''prog.c'' (al cărui conținut nu ne interesează) este compilat și linkat cu diferite opțiuni în executabilele ''prog_all'' și ''prog_no''.
+
+Folosiți comanda ''checksec'' având, pe rând, ca argument, cele două executabile și observați ce opțiuni de securitate sunt prezente/absente în fiecare. Urmăriți în fișierul ''Makefile'' opțiunile de compilare/linkare folosite pentru fiecare.
+
+==== Stack Smashing Protection (SSP) ====
+
+Accesăm directorul ''ssp/'' din arhiva de suport.
+
+În fișierul ''README'' din director vi se indică să parcurgeți directoarele care încep cu ''bo-'' din [[:secure-low-level-programming:capitole:06-exploatarea memoriei|Capitolul 06: Exploatarea memoriei]]. Reexploatați-le folosind atât opțiunea curentă ''-fno-stack-protector'' din fișierele ''Makefile'' existente (de dezactivare a SSP, //Stack Smashing Protection// sau //stack canary// sau //stack guard//), cât și opțiunea ''-fstack-protector'' de activare a SSP.
+
+==== Data Execution Prevention (DEP) ====
+
+Accesăm directorul ''dep/'' din arhiva de suport.
+
+În fișierul ''README'' din director vi se indică să parcurgeți directoarele care conțin ''-shellcode'' din [[:secure-low-level-programming:capitole:06-exploatarea memoriei|Capitolul 06: Exploatarea memoriei]]. Reexploatați-le folosind atât opțiunea curentă ''-zexecstack'' din fișierele ''Makefile'' existente (de dezactivare a DEP, //Data Execution Prevention//), cât și eliminarea opțiunii, pentru activarea DEP.
+
+Se observă că deși acum executabilul are activat DEP (verificați cu ''checksec'') în continuare exploit-ul funcționează. Acest lucru se întâmplă întrucât variabila ''shellcode'' este de tipul ''const char'', adică parte din ''.rodata'', secțiune care se "unește" cu cea de text și este executabilă. Ca să nu meargă faceți tipul variabilei ''shellcode'' să fie ''char'' (fără ''const''), pentru ca variabila să fie reținută în ''.data'', zonă care este //writable// dar **nu** //executable//.
+
+==== Fortify Source ====
+
+Accesăm directorul ''fortify_source/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''.
+
+În fișierul ''Makefile'' comentați prima linie ca să dezactivați opțiunea ''_FORTIFY_SOURCE'':
+<code>
+# CPPFLAGS = -D_FORTIFY_SOURCE=2
+</code>
+
+Exploatați executabilul ''vuln''.
+
+Apoi decomentați prima linie din ''Makefile'' și încercați din nou exploatarea executabilului ''vuln''. În mod obișnuit, absența/dezactivarea opțiunii ''_FORTIFY_SOURCE'' nu ar mai permite exploatarea executabilului. Cu toate acestea, e posibil ca anumite versiuni de compilator să definească implicit opțiunea ''_FORTIFY_SOURCE''. Soluția este să precizăm valoarea ''0'' pentru opțiunea în fișierul ''Makefile'' ca mai jos:
+<code>
+CPPFLAGS = -D_FORTIFY_SOURCE=0
+</code>
+
+==== Address Sanitizer ====
+
+Accesăm directorul ''asan/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Fișierul executabil ''prog'' este obținut folosind suport de //Address Sanitizer//, așa cum puteți observa din fișierul ''Makefile''.
+
+La rularea executabilului, //Address Sanitizer// detectează situația de //stack buffer overflow//.

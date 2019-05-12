@@ -1,0 +1,106 @@
+====== 5. Lucrul cu șiruri ======
+
+Una dintre cele mai importante structuri în limbajele de programare (și printre cele mai cauzatoare de dureri de cap) o reprezintă șirurile. Discutăm despre reprezentarea șirurilor, despre particularități ale lucrurilor cu șiruri, probleme frecvente și moduri de exploatare.
+
+===== Subiecte abordate =====
+
+  * buffere și șiruri
+  * șiruri în C
+  * șiruri în C++
+  * probleme cu șiruri
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/05-siruri.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/05-siruri-skel.zip|Arhiva de suport]]
+
+
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/05-siruri-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/05-siruri-skel.zip
+unzip 05-siruri-skel.zip
+cd 05-siruri-skel
+</code>
+
+==== Dimensiunea unui șir ====
+
+Accesăm directorul ''charsize/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilele ''prog'' și ''prog32''. Urmăriți dimensiunea tipurilor de date corespunzătoare unui caracter.
+
+==== End of File (EOF) ====
+
+Accesăm directorul ''eof/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Programul nu funcționează corespunzător, se oprește la citirea primelor 3 caractere din fișierul ''data''. Rezolvați problema.
+
+<note tip>
+Ca să vedeți conținutul efectiv (binar) al fișierului ''data'' rulați comanda
+<code>
+xxd data
+00000000: 616e 61ff 6172 65ff 6d65 7265 0a         ana.are.mere.
+</code>
+</note>
+
+==== Leak de informație ====
+
+Accesăm directorul ''leak/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Ambele funcții din fișierul sursă (''do_nasty1()'' ''do_nasty2()'') generează leak de informație. De ce se întâmplă asta? Ce informație este leaked în fiecare caz?
+
+<note tip>
+Pentru a observa un leak binar (neprintabil) folosiți o comandă de forma
+<code>
+./vuln | xxd
+</code>
+</note>
+
+==== Suprascriere (overflow) ====
+
+Accesăm directorul ''overflow/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Folosiți-vă de buffer overflow-ul existent în program ca să afișați mesajul //You've got it. Congratulations!//. Trebuie să suprascrieți șirul/buffer-ul ''msg'' cu mesajul corespunzător.
+
+<note tip>
+Ca să vedeți unde sunt plasate variabilele locale și bufferele și să aflați diferența între ele (//offset//-ul), dezasamblați executabilul și aflați adresa bufferului și a variabilei (sunt de forma ''rbp-<numar>''):
+<code>
+student@pr706-pc:~$ objdump -d -M intel vuln
+</code>
+</note>
+
+Ca să afișați un șir mai complex folosiți Python ca mai jos:
+<code>
+student@pr706-pc:~$ python -c 'print "A"*16'
+AAAAAAAAAAAAAAAA
+
+student@pr706-pc:~$$ python -c 'print "A"*16 + "B"*4'
+AAAAAAAAAAAAAAAABBBB
+
+student@pr706-pc:~$$ python -c 'print "A"*16 + "B"*4 + "\xaa\xbb"'
+AAAAAAAAAAAAAAAABBBB
+
+student@pr706-pc:~$$ python -c 'print "A"*16 + "B"*4 + "\xaa\xbb"' | xxd
+00000000: 4141 4141 4141 4141 4141 4141 4141 4141  AAAAAAAAAAAAAAAA
+00000010: 4242 4242 aabb 0a                        BBBB...
+</code>
+
+==== Caracteristici printf ====
+
+Accesăm directorul ''printf-features/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''printf_features.c'', folosiți comanda ''make'' pentru a compila și apoi rulați executabilul ''print_features''. Vedeți pentru fiecare mesaj ce se întâmplă și de ce se întâmplă.
+
+==== Atacuri de șir de formatare ====
+
+Accesăm directorul ''format-string-attack/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''vuln.c'' și rulați executabilul ''vuln''. Folosiți scriptul ''exploit'' pentru a exploata programul ''vuln'' în forma:
+<code>
+./exploit | ./vuln
+</code>
+
+<note important>
+Este posibil ca pe o configurație a sistemului să nu funcționeze scriptul ''exploit'' adică să nu suprascrie variabila ''v'' cu valoarea ''100'' ci cu altă valoare. Actualizați scriptul pentru a funcționa corespunzător.
+</note>

@@ -1,0 +1,81 @@
+====== 10. Controlul accesului ======
+
+Chiar dacă o aplicație este securizată din punct de vedere software este posibil să existe probleme de configurare a aplicației sau permisiuni care îi permit să realizeze intenționat sau nu acțiuni nelegitime. Pentru aceasta sistemul va configura politice și mecanisme care să controleze accesul aplicației la resursele sistemului. Principiul //least privilege// înseamnă că unei aplicații îi vor fi furnizate doar acele permisiuni necesare.
+
+===== Subiecte abordate =====
+
+  * privilegii și permisiuni
+  * controlul accesului
+  * capabilități
+  * MAC (//Mandatory Access Control//)
+
+===== Resurse =====
+
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/slides/10-controlul-accesului.pdf|Slide-uri]]
+  * [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/10-controlul-accesului-skel.zip|Arhiva de suport]]
+
+
+===== Exerciții =====
+
+Arhiva de suport pentru exerciții se găsește [[http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/10-controlul-accesului-skel.zip|aici]].  Descărcați arhiva și apoi decomprimați-o folosind comenzile:<code>
+wget http://koala.cs.pub.ro/training/res/secure-low-level-programming/arc/10-controlul-accesului-skel.zip
+unzip 10-controlul-accesului-skel.zip
+cd 10-controlul-accesului-skel/
+</code>
+
+==== setuid ====
+
+Accesăm directorul ''setuid/'' din arhiva de suport.
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Programul încearcă deschiderea a două fișiere privilegiate. În primă instanța va eșua.
+
+Apoi schimbați owner-ul fișierului în ''root'' și adăugați-i bitul de ''setuid'' folosind comenzile
+<code>
+sudo chown root:root prog
+sudo chmod u+s prog
+</code>
+
+Acum rulați din nou programul și observați că reușește deschiderea unui fișier, câtă vreme //effective user id-ul// (''euid'') este ''0''. În momentul în care //effective user id-ul// (''euid'') este ''1000'', operația eșuează.
+
+==== cap ====
+
+Accesăm directorul ''cap/'' din arhiva de suport.
+
+<note important>
+Va trebui să instalați pachetul ''libcap-dev'' folosind comanda
+<code>
+sudo apt install libcap-dev
+</code>
+</note>
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Programul încearcă deschiderea a două fișiere privilegiate. În primă instanța va eșua.
+
+Apoi oferiți executabilului ''prog'' capabilitatea ''CAP_DAC_READ_SEARCH'' folosind comanda:
+<code>
+sudo setcap cap_dac_read_search+ep ./prog
+</code>
+Verificați adăugarea capabilității folosind comanda:
+<code>
+getcap ./prog
+</code>
+
+Acum rulați din nou programul și observați că reușește deschiderea unui fișier, câtă vreme capabilitatea ''CAP_DAC_READ_SEARCH'' este prezentă.
+
+<note tip>
+Dacă doriți să eliminați capabilitatea ''CAP_DAC_READ_SEARCH'' din executabilul ''prog'' folosiți comanda
+<code>
+sudo setcap cap_dac_read_search-ep ./prog
+</code>
+</note>
+==== seccomp ====
+
+Accesăm directorul ''seccomp/'' din arhiva de suport.
+
+<note important>
+Va trebui să instalați pachetul ''libseccomp-dev'' folosind comanda
+<code>
+sudo apt install libseccomp-dev
+</code>
+</note>
+
+Urmăriți conținutul fișierului ''prog.c'' și rulați executabilul ''prog''. Programul încearcă deschiderea a două fișiere privilegiate. Deschiderea primului fișier va reuși, în vreme ce deschiderea celui de-al doilea fișier va eșua dată fiind folosirea sandboxing-ului cu ajutorul ''seccomp''.
